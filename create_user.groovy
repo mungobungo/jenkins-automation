@@ -1,0 +1,1 @@
+jenkins.model.Jenkins.instance.securityRealm.createAccount("user1", "password123")
