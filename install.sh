@@ -1,5 +1,5 @@
 #!/bin/bash -ex
-wget -O jenkins.war http://mirrors.jenkins-ci.org/war/2.75/jenkins.war -P /home/ubuntu/
+sudo wget -O /home/ubuntu/jenkins.war http://mirrors.jenkins-ci.org/war/2.75/jenkins.war -P /home/ubuntu/
 sudo chmod 666 /home/ubuntu/jenkins.war
 sudo chown ubuntu /home/ubuntu/jenkins.war
 export JENKINS_HOME=/home/ubuntu/jenkins
