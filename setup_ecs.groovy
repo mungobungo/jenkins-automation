@@ -9,11 +9,16 @@ instance = Jenkins.getInstance()
 
 logger.info("Retrieving ecs cloud config by descriptor")
 import com.cloudbees.jenkins.plugins.amazonecs.ECSCloud
+def env = System.getenv()
+//Print all the environment variables.
+
+// You can also access the specific variable, say 'username', as show below 
+String arn= env['ECS_CLUSTER_ARN']
 ecsCloud = new ECSCloud(
   name="name",
   templates=null,
   credentialsId=null,
-  cluster="arn:aws:ecs:eu-west-1:799459952255:cluster/jenkins",
+  cluster=arn,
   regionName="eu-west-1",
   jenkinsUrl="https://my-jenkins2.com",
   slaveTimoutInSeconds=60
