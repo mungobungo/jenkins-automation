@@ -1,13 +1,4 @@
 #!/bin/bash -ex
-sudo apt-get update && sudo apt-get install default-jre -y
-sudo apt-get install unzip -y
-sudo apt-get install git -y
-sudo sh -c 'echo "127.0.0.1" > /tmp/ip.txt && paste /tmp/ip.txt /etc/hostname >> /etc/hosts'
-sudo rm -fr /tmp/jenkins-automation
-cd /tmp 
-git clone https://github.com/mungobungo/jenkins-automation.git 
-cd /tmp/jenkins-automation
-sudo chown -R ubuntu /tmp//jenkins-automation
 wget -O jenkins.war http://mirrors.jenkins-ci.org/war/2.75/jenkins.war -P /home/ubuntu/
 sudo chmod 666 /home/ubuntu/jenkins.war
 sudo chown ubuntu /home/ubuntu/jenkins.war
