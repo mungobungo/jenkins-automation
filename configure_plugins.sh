@@ -1,7 +1,6 @@
 #!/bin/bash -ex
-sudo curl http://127.0.0.1:8080/jnlpJars/jenkins-cli.jar --output jenkins-cli.jar
-pass=`sudo cat  /root/.jenkins/secrets/initialAdminPassword` 
-cat /tmp/jenkins-automation/env.groovy | java -jar jenkins-cli.jar -auth admin:$pass -s http://localhost:8080/ groovy =  
-cat /tmp/jenkins-automation/jenkins_git.groovy | java -jar jenkins-cli.jar -auth admin:$pass -s http://localhost:8080/ groovy =  
-cat /tmp/jenkins-automation/setup_ecs.groovy | java -jar jenkins-cli.jar -auth admin:$pass -s http://localhost:8080/ groovy =  
-echo 'DONE'
+wget -N --quiet http://127.0.0.1:8080/jnlpJars/jenkins-cli.jar
+sh ./call_jenkins_groovy.sh env.groovy
+sh ./call_jenkins_groovy.sh jenkins_git.groovy
+sh ./call_jenkins_groovy.sh setup_ecs.groovy
+echo 'DONE configuring plugins'
