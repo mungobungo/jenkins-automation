@@ -7,3 +7,5 @@ sudo chmod +x ./install_jenkins_plugins.sh
 sudo mkdir -p /jenkins/plugins
 sudo ./install_jenkins_plugins.sh -d /jenkins/plugins -a git@3.5.1 xunit@1.102 amazon-ecs@1.11 || error_exit 'Failed to install plugins'
 sudo java -jar /opt/jenkins.war &
+sleep 60 && "install phase dode"
+
