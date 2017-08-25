@@ -1,5 +1,5 @@
 #!/bin/bash -ex
-sudo wget -O /home/ubuntu/jenkins.war http://mirrors.jenkins-ci.org/war/2.75/jenkins.war -P /home/ubuntu/
+sudo wget -O /opt/jenkins.war http://mirrors.jenkins-ci.org/war/2.75/jenkins.war -P /opt/
 export JENKINS_HOME=/opt/jenkins
 mkdir -p /.jenkins/plugins/plugins
 chmod +x ./install_jenkins_plugins.sh
