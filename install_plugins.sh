@@ -5,4 +5,5 @@ sh ./call_jenkins_groovy.sh create_user.groovy
 sh ./call_jenkins_command.sh 'install-plugin git'
 sh ./call_jenkins_command.sh 'install-plugin xunit'
 sh ./call_jenkins_command.sh 'install-plugin amazon-ecs'
+sh ./call_jenkins_command.sh 'install-plugin aws-codepipeline'
 sh ./call_jenkins_command.sh 'restart'
