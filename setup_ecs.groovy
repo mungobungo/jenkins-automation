@@ -1,22 +1,32 @@
 import java.util.Arrays
-import java.util.logging.Logger
-Logger logger = Logger.getLogger("ecs-cluster")
-
-logger.info("Loading Jenkins")
 import jenkins.model.*
 instance = Jenkins.getInstance()
 
 
-logger.info("Retrieving ecs cloud config by descriptor")
 import com.cloudbees.jenkins.plugins.amazonecs.ECSCloud
 def env = System.getenv()
-//Print all the environment variables.
 
-// You can also access the specific variable, say 'username', as show below 
+import com.cloudbees.jenkins.plugins.amazonecs.ECSTaskTemplate
+def ecsTemplate = new ECSTaskTemplate(
+  templateName="jnlp-slave-with-docker",
+  label="ecs-with-docker",
+  image="jnlp-slave-with-docker:latest",
+  remoteFSRoot=null,
+  memorySoftReservation=2024,
+  memoryHardReservation=0,
+  cpu=512,
+  privileged=false,
+  logDriverOptions=[],
+  environments=[],
+  extraHosts=[],
+  mountPoints=[]
+)
+
+// You can also access the specific variable, say 'username', as show below
 String arn= env['ECS_CLUSTER_ARN']
 ecsCloud = new ECSCloud(
-  name="name",
-  templates=null,
+  name="ecs",
+  templates=Arrays.asList(ecsTemplate),
   credentialsId=null,
   cluster=arn,
   regionName="eu-west-1",
@@ -24,8 +34,7 @@ ecsCloud = new ECSCloud(
   slaveTimoutInSeconds=60
 )
 
-logger.info("Gettings clouds")
+
 def clouds = instance.clouds
 clouds.add(ecsCloud)
-logger.info("Saving jenkins")
 instance.save()
