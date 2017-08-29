@@ -24,13 +24,14 @@ def ecsTemplate = new ECSTaskTemplate(
 
 // You can also access the specific variable, say 'username', as show below
 String arn= env['ECS_CLUSTER_ARN']
+String jenkinsUrl= env['JENKINS_OWN_IP']
 ecsCloud = new ECSCloud(
   name="ecs",
   templates=Arrays.asList(ecsTemplate),
   credentialsId=null,
   cluster=arn,
   regionName="eu-west-1",
-  jenkinsUrl="https://my-jenkins2.com",
+  jenkinsUrl="http://" + jenkinsUrl + ":8080",
   slaveTimoutInSeconds=60
 )
 
