@@ -1,5 +1,10 @@
 import java.util.Arrays
+import java.util.logging.Logger
 import jenkins.model.*
+Logger logger = Logger.getLogger("ecs-cluster")
+
+logger.info("Loading Jenkins")
+
 instance = Jenkins.getInstance()
 
 
@@ -21,10 +26,12 @@ def ecsTemplate = new ECSTaskTemplate(
   extraHosts=[],
   mountPoints=[]
 )
-
-// You can also access the specific variable, say 'username', as show below
 String arn= env['ECS_CLUSTER_ARN']
 String jenkinsUrl= env['JENKINS_OWN_IP']
+
+logger.info("esc ECS_CLUSTER_ARN is ${arn} and JENKINS_OWN_IP is ${jenkinsUrl}")
+// You can also access the specific variable, say 'username', as show below
+
 ecsCloud = new ECSCloud(
   name="ecs",
   templates=Arrays.asList(ecsTemplate),
@@ -35,7 +42,13 @@ ecsCloud = new ECSCloud(
   slaveTimoutInSeconds=60
 )
 
-
+instance.clouds.each{cl -> logger.info(cl.name)}
 def clouds = instance.clouds
-clouds.add(ecsCloud)
+logger.info("killing all existing clouds")
+clouds.removeAll{1 ==1 }
 instance.save()
+logger.info("adding provisioned cloud")
+clouds.add(ecsCloud)
+logger.info("Saving jenkins")
+instance.save()
+instance.clouds.each{cl -> logger.info(cl.name)}
