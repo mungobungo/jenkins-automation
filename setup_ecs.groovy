@@ -12,20 +12,238 @@ import com.cloudbees.jenkins.plugins.amazonecs.ECSCloud
 def env = System.getenv()
 
 import com.cloudbees.jenkins.plugins.amazonecs.ECSTaskTemplate
-def ecsTemplate = new ECSTaskTemplate(
-  templateName="jnlp-slave-with-docker",
-  label="ecs-with-docker",
-  image="jnlp-slave-with-docker:latest",
+def netcore_dind = new ECSTaskTemplate(
+  templateName="netcore-dind",
+  label="netcore-dind",
+  image="derwasp/jenkins-jnlp:dind-netcore-mono",
   remoteFSRoot=null,
-  memorySoftReservation=2024,
+  memorySoftReservation=1536,
   memoryHardReservation=0,
-  cpu=512,
+  cpu=1024,
   privileged=false,
   logDriverOptions=[],
   environments=[],
   extraHosts=[],
   mountPoints=[]
 )
+
+def jenkins_java = new ECSTaskTemplate(
+  templateName="jenkins-java",
+  label="jenkins-java",
+  image="cloudbees/jnlp-slave-with-java-build-tools",
+  remoteFSRoot=null,
+  memorySoftReservation=1024,
+  memoryHardReservation=0,
+  cpu=1,
+  privileged=false,
+  logDriverOptions=[],
+  environments=[],
+  extraHosts=[],
+  mountPoints=[]
+)
+
+def netcore_serverless = new ECSTaskTemplate(
+  templateName="netcore-serverless",
+  label="netcore-serverless",
+  image="derwasp/jenkins-jnlp:netcore1.0.3-sdk-rc4-004771-serverless-1.8.0",
+  remoteFSRoot=null,
+  memorySoftReservation=1024,
+  memoryHardReservation=0,
+  cpu=256,
+  privileged=false,
+  logDriverOptions=[],
+  environments=[],
+  extraHosts=[],
+  mountPoints=[]
+)
+
+def netcore_rc4_dind = new ECSTaskTemplate(
+  templateName="netcore-rc4-dind",
+  label="netcore-rc4-dind",
+  image="derwasp/jenkins-jnlp:dind-1.13.1-netcore1.1-sdk-rc4-004771-mono-4.6.2.16",
+  remoteFSRoot=null,
+  memorySoftReservation=1536,
+  memoryHardReservation=0,
+  cpu=1024,
+  privileged=false,
+  logDriverOptions=[],
+  environments=[],
+  extraHosts=[],
+  mountPoints=[]
+)
+
+def netcore10_dind_sls = new ECSTaskTemplate(
+  templateName="netcore10-dind-sls",
+  label="netcore10-dind-sls",
+  image="derwasp/jenkins-jnlp:dind-1.13.0-netcore1.0.3-sdk-rc4-004771-mono-4.6.2.16-serverless-1.8.0",
+  remoteFSRoot=null,
+  memorySoftReservation=1536,
+  memoryHardReservation=0,
+  cpu=1024,
+  privileged=false,
+  logDriverOptions=[],
+  environments=[],
+  extraHosts=[],
+  mountPoints=[]
+)
+
+def netcore10 = new ECSTaskTemplate(
+  templateName="netcore10",
+  label="netcore10",
+  image="derwasp/jenkins-jnlp:netcore1.0.4-sdk1.0.1-mono-4.6.2.16",
+  remoteFSRoot=null,
+  memorySoftReservation=2048,
+  memoryHardReservation=0,
+  cpu=2048,
+  privileged=false,
+  logDriverOptions=[],
+  environments=[],
+  extraHosts=[],
+  mountPoints=[]
+)
+
+
+def ecs = new ECSTaskTemplate(
+  templateName="ecs",
+  label="ecs",
+  image="cloudbees/jnlp-slave-with-java-build-tools",
+  remoteFSRoot=null,
+  memorySoftReservation=2048,
+  memoryHardReservation=0,
+  cpu=1024,
+  privileged=false,
+  logDriverOptions=[],
+  environments=[],
+  extraHosts=[],
+  mountPoints=[]
+)
+
+
+def dotnet = new ECSTaskTemplate(
+  templateName="dotnet",
+  label="dotnet",
+  image="ivanakcheurov/jenkins-jnlp-slave-dotnet:v6",
+  remoteFSRoot=null,
+  memorySoftReservation=2048,
+  memoryHardReservation=0,
+  cpu=1024,
+  privileged=false,
+  logDriverOptions=[],
+  environments=[],
+  extraHosts=[],
+  mountPoints=[]
+)
+
+
+
+def ecsjava = new ECSTaskTemplate(
+  templateName="ecsjava",
+  label="ecsjava",
+  image="apbowang/jenkinsslave:javabase",
+  remoteFSRoot=null,
+  memorySoftReservation=2048,
+  memoryHardReservation=0,
+  cpu=1024,
+  privileged=false,
+  logDriverOptions=[],
+  environments=[],
+  extraHosts=[],
+  mountPoints=[]
+)
+
+def asp_net = new ECSTaskTemplate(
+  templateName="asp_net",
+  label="asp_net",
+  image="74th/jenkins-dotnet",
+  remoteFSRoot=null,
+  memorySoftReservation=2048,
+  memoryHardReservation=0,
+  cpu=1024,
+  privileged=false,
+  logDriverOptions=[],
+  environments=[],
+  extraHosts=[],
+  mountPoints=[]
+)
+
+def ecsjavaweb = new ECSTaskTemplate(
+  templateName="ecsjavaweb",
+  label="ecsjavaweb",
+  image="apbowang/jenkinsslave:javawebchrome",
+  remoteFSRoot=null,
+  memorySoftReservation=4096,
+  memoryHardReservation=0,
+  cpu=2048,
+  privileged=false,
+  logDriverOptions=[],
+  environments=[],
+  extraHosts=[],
+  mountPoints=[]
+)
+
+def ecsjavawebff = new ECSTaskTemplate(
+  templateName="ecsjavawebff",
+  label="ecsjavawebff",
+  image="apbowang/javawebffjenkinsslave",
+  remoteFSRoot=null,
+  memorySoftReservation=4096,
+  memoryHardReservation=0,
+  cpu=2048,
+  privileged=false,
+  logDriverOptions=[],
+  environments=[],
+  extraHosts=[],
+  mountPoints=[]
+)
+
+def dockerbuilder = new ECSTaskTemplate(
+  templateName="dockerbuilder",
+  label="dockerbuilder",
+  image="derwasp/jenkins-jnlp-dind",
+  remoteFSRoot=null,
+  memorySoftReservation=7000,
+  memoryHardReservation=0,
+  cpu=2048,
+  privileged=false,
+  logDriverOptions=[],
+  environments=[],
+  extraHosts=[],
+  mountPoints=[]
+)
+
+def alltestrun = new ECSTaskTemplate(
+  templateName="alltestrun",
+  label="alltestrun",
+  image="apbowang/javawebjenkinsslave",
+  remoteFSRoot=null,
+  memorySoftReservation=7000,
+  memoryHardReservation=0,
+  cpu=2048,
+  privileged=false,
+  logDriverOptions=[],
+  environments=[],
+  extraHosts=[],
+  mountPoints=[]
+)
+
+
+
+def ecspython = new ECSTaskTemplate(
+  templateName="ecspython",
+  label="ecspython",
+  image="sajnikanth/docker",
+  remoteFSRoot=null,
+  memorySoftReservation=2048,
+  memoryHardReservation=0,
+  cpu=2048,
+  privileged=false,
+  logDriverOptions=[],
+  environments=[],
+  extraHosts=[],
+  mountPoints=[]
+)
+
+
 String arn= env['ECS_CLUSTER_ARN']
 String jenkinsUrl= env['JENKINS_OWN_IP']
 
@@ -34,7 +252,9 @@ logger.info("esc ECS_CLUSTER_ARN is ${arn} and JENKINS_OWN_IP is ${jenkinsUrl}")
 
 ecsCloud = new ECSCloud(
   name="ecs",
-  templates=Arrays.asList(ecsTemplate),
+  templates=Arrays.asList(netcore_dind, jenkins_java, netcore_serverless, netcore_rc4_dind, 
+            netcore10_dind_sls, netcore10, ecs, dotnet, ecsjava, asp_net, ecsjavaweb, 
+             ecsjavawebff, dockerbuilder, alltestrun, ecspython),
   credentialsId=null,
   cluster=arn,
   regionName="eu-west-1",
@@ -45,7 +265,7 @@ ecsCloud = new ECSCloud(
 instance.clouds.each{cl -> logger.info(cl.name)}
 def clouds = instance.clouds
 logger.info("killing all existing clouds")
-clouds.removeAll{1 ==1 }
+clouds.removeAll{1 == 1 }
 instance.save()
 logger.info("adding provisioned cloud")
 clouds.add(ecsCloud)
